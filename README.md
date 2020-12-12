@@ -43,7 +43,6 @@ for city, city_museums, city_parks in cities_with_museums_and_parks:
 Although streaming would typically be unnecessary if the data is in memory, it's easiest to see the behaviour when the iterables are lists.
 
 ```python
-import json
 from streaming_left_join import join
 
 # The "left" iterable
@@ -69,7 +68,7 @@ cities_with_museums_and_parks = join(
 )
 
 for city, city_museums, city_parks in cities_with_museums_and_parks:
-    city_json = json.dumps({
+    print({
         'id': city['area_id'],
         'name' : city['name'],
         'museums': [
@@ -80,8 +79,7 @@ for city, city_museums, city_parks in cities_with_museums_and_parks:
             {'name': park['name'], 'area_km_sq': park['area_km_sq']}
             for park in city_parks
         ]
-    })
-    print(city_json)  # or something like upload the city_dict somewhere
+    })  # or something like upload the dict somewhere
 ```
 
 
@@ -92,7 +90,6 @@ A more realistic use case is to join the results of (streaming) queries.
 ```python
 import argparse
 import contextlib
-import json
 import psycopg2
 import psycopg2.extras
 from streaming_left_join import join
@@ -135,7 +132,7 @@ with get_conn() as conn:
     )
 
     for city, city_museums, city_parks in cities_with_museums_and_parks:
-        city_json = json.dumps({
+        print({
             'id': city['city_id'],
             'name' : city['name'],
             'museums': [
@@ -146,8 +143,7 @@ with get_conn() as conn:
                 {'name': park['name'], 'area_km_sq': park['area_km_sq']}
                 for park in city_parks
             ]
-        })
-        print(city_json)  # or something like upload the city_json somewhere
+        })  # or something like upload the dict somewheree
 ```
 
 
