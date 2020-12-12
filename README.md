@@ -5,7 +5,16 @@ Join iterables in code without loading them all in memory: similar to a SQL left
 A use case for this is part of streaming pipeline to convert multiple tables of a relational database into a set of dictionaries, which can then be converted to JSON.
 
 
-## Usage: iterables
+## Installation
+
+```bash
+pip install python-streaming-left-join
+```
+
+
+## Example: iterables
+
+A single function is exposed: `join`.
 
 ```python
 import json
@@ -52,7 +61,9 @@ for city, city_museums, city_parks in cities_with_museums_and_parks:
 ```
 
 
-## Usage: psycopg2
+## Example: psycopg2
+
+A more realistic use case of `join` is to join the results of (streaming) queries.
 
 ```python
 import argparse
