@@ -233,3 +233,51 @@ class TestJoin(unittest.TestCase):
         with self.assertRaises(UnusedDataException):
             for city, city_museums, city_parks in cities_with_museums_and_parks:
                 pass
+
+    def test_incorrect_ordering_first(self):
+        cities = [
+            {'city_id': 1, 'name': 'London'},
+            {'city_id': 2, 'name': 'Paris'},
+        ]
+        museums = [
+            {'city_id': 2, 'name': 'Louvre', 'number_of_exhibits': 380000},
+            {'city_id': 1, 'name': 'Science Museum', 'number_of_exhibits': 300000},
+        ]
+        parks = [
+            {'city_id': 1, 'name': 'Hyde Park', 'area_km_sq':  1.41}, 
+            {'city_id': 2, 'name': 'Jardin du Luxembourg', 'area_km_sq':  0.23},
+        ]
+
+        cities_with_museums_and_parks = join(
+            (cities, lambda city: city['city_id']),
+            (museums, lambda museum: museum['city_id']),
+            (parks, lambda park: park['city_id']),
+        )
+
+        with self.assertRaises(UnusedDataException):
+            for city, city_museums, city_parks in cities_with_museums_and_parks:
+                pass
+
+    def test_incorrect_ordering_second(self):
+        cities = [
+            {'city_id': 1, 'name': 'London'},
+            {'city_id': 2, 'name': 'Paris'},
+        ]
+        museums = [
+            {'city_id': 1, 'name': 'Science Museum', 'number_of_exhibits': 300000},
+            {'city_id': 2, 'name': 'Louvre', 'number_of_exhibits': 380000},
+        ]
+        parks = [
+            {'city_id': 2, 'name': 'Jardin du Luxembourg', 'area_km_sq':  0.23},
+            {'city_id': 1, 'name': 'Hyde Park', 'area_km_sq':  1.41},  
+        ]
+
+        cities_with_museums_and_parks = join(
+            (cities, lambda city: city['city_id']),
+            (museums, lambda museum: museum['city_id']),
+            (parks, lambda park: park['city_id']),
+        )
+
+        with self.assertRaises(UnusedDataException):
+            for city, city_museums, city_parks in cities_with_museums_and_parks:
+                pass
