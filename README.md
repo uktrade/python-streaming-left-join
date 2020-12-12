@@ -21,6 +21,8 @@ The first tuple contains the "left" iterable, and the subsequent tuples contain 
 This can be shown using the following skeleton example, joining museums and parks onto cities.
 
 ```python
+from streaming_left_join import join
+
 # The "left" iterable
 cities = ...
 
