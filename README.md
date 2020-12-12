@@ -8,7 +8,7 @@ A use case for this is part of streaming pipeline to convert multiple tables of 
 ## Installation
 
 ```bash
-pip install python-streaming-left-join
+pip install streaming-left-join
 ```
 
 
