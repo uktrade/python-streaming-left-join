@@ -1,4 +1,4 @@
-# python-streaming-left-join
+# python-streaming-left-join [![uktrade](https://circleci.com/gh/uktrade/python-streaming-left-join.svg?style=shield)](https://circleci.com/gh/uktrade/python-streaming-left-join)
 
 Join iterables in code without loading them all in memory: similar to a SQL left join.
 
