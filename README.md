@@ -4,8 +4,6 @@ Join iterables in code without loading them all in memory: similar to a SQL left
 
 A use case for this is part of streaming pipeline to convert multiple tables of a relational database into a set of dictionaries, which can then be converted to JSON.
 
-> Work in progress. This README serves as a rough design spec
-
 
 ## Usage: iterables
 
@@ -115,3 +113,16 @@ with get_conn() as conn:
             ]
         })
         print(city_json)  # or something like upload the city_json somewhere
+```
+
+
+## Order of the iterables must be the same
+
+The key to join on _must_ be in the same order in each iterable for this to work properly. If the iterables are the results of SQL queries, this can be acheived by the same `ORDER BY` clause in each of them.
+
+This can be error-prone, but the `join` function detects if on a mistake has been made regarding ordering. If each iterable is not ordered correctly, then at the end of the iteration, there will be unused data in the right iterables. In this case, iterating over the result of `join` will raise an `UnusedDataException` at the end of the iteration.
+
+
+## The right iterables are yielded as lists
+
+In the above examples, each `city_museums` and `city_parks` are a `list`, rather than some other iterable that doesn't load into memory all at once. In this respect it's not as streaming as it could be. However, the use cases of `join` are where for each item of the left iterable, all the matching right iterable values need to be in memory anyway. If streaming right iterables are required, some other pattern/library will be needed.
