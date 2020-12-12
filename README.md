@@ -14,15 +14,17 @@ pip install python-streaming-left-join
 
 ## Usage
 
-A single function is exposed: `join`. It accepts pairs of tuples as arguments. The first value of the tuple must be an iterable, and the second a function that takes an item of the iterable, and returns a key to join.
+A single function is exposed: `join`. It accepts pairs of tuples as arguments. The first value of each tuple must be an iterable, and the second a function that takes an item of the iterable, and returns a key to join on.
 
 The first tuple contains the "left" iterable, and the subsequent tuples contain the "right" iterables to join onto the "left".
 
 This can be shown using the following skeleton example, joining museums and parks onto cities.
 
 ```python
-# Iterables
+# The "left" iterable
 cities = ...
+
+# The "right" iterables
 museums = ...
 parks = ...
 
