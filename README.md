@@ -12,15 +12,37 @@ pip install python-streaming-left-join
 ```
 
 
-## Example: iterables
+## Usage
 
-A single function is exposed: `join`.
+A single function is exposed: `join`. It accepts pairs of tuples as arguments. The first value of the tuple must be an iterable, and the second a function that takes an item of the iterable, and returns a key to join.
+
+The first tuple contains the "left" iterable, and the subsequent tuples contain the "right" iterables to join onto the "left".
+
+This can be shown using the following skeleton example, joining museums and parks onto cities.
+
+```python
+# Iterables
+cities = ...
+museums = ...
+parks = ...
+
+cities_with_museums_and_parks = join(
+    (cities, lambda city: city['city_id']),
+    (museums, lambda museum: museum['city_id']),
+    (parks, lambda park: park['city_id']),
+)
+for city, city_museums, city_parks in cities_with_museums_and_parks:
+    ...
+```
+
+
+## Full example: lists
+
+Although streaming would typically be unnecessary if the data is in memory, it's easiest to see the behaviour when the iterables are lists.
 
 ```python
 import json
 from streaming_left_join import join
-
-# Presented as lists, but these can be any iterables
 
 # The "left" iterable
 cities = [
@@ -61,9 +83,9 @@ for city, city_museums, city_parks in cities_with_museums_and_parks:
 ```
 
 
-## Example: psycopg2
+## Full example: psycopg2
 
-A more realistic use case of `join` is to join the results of (streaming) queries.
+A more realistic use case is to join the results of (streaming) queries.
 
 ```python
 import argparse
