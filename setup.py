@@ -8,7 +8,7 @@ def long_description():
 
 setuptools.setup(
     name='streaming-left-join',
-    version='0.0.4',
+    version='0.0.5',
     author='Department for International Trade',
     author_email='webops@digital.trade.gov.uk',
     description='Join iterables in code without loading them all in memory: similar to a SQL left join.',
