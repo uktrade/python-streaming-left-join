@@ -2,7 +2,7 @@
 
 Join iterables in code without loading them all in memory: similar to a SQL left join.
 
-A use case for this is part of streaming pipeline to convert multiple tables of a relational database into a set of dictionaries, which can then be converted to JSON.
+The iterables are not flattened into a single table as a SQL left join would. Instead, the result of the join maintains the separation between source iterables, so they can be further processed. For example so a dictionary can be constructed for each left iterable item containing its matching right iterable items.
 
 
 ## Installation
