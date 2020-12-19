@@ -12,8 +12,10 @@ def join(left_iter_left_key, *right_iters_with_keys):
     # Magic "left" item to match all right items to empty the right iterables at the end
     match_any = object()
 
+    # Magic "right" item that signals a right item is needed to be pulled from the iterable
+    right_item_needed = object()
+
     def right_gen(right_iter, right_key):
-        right_item_needed = object()
         right_item = right_item_needed
 
         def right_gen_for(left_item):
