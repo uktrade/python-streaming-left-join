@@ -153,7 +153,7 @@ with get_conn() as conn:
 
 The key to join on _must_ be in the same order in each iterable for this to work properly. If the iterables are the results of SQL queries, this can be acheived by the same `ORDER BY` clause in each of them.
 
-This can be error-prone, but the `join` function detects if on a mistake has been made regarding ordering. If each iterable is not ordered correctly, then at the end of the iteration, there will be unused data in the right iterables. In this case, iterating over the result of `join` will raise an `UnusedDataException` at the end of the iteration.
+This can be error-prone, but the `join` function detects if a mistake has been made regarding ordering. If each iterable is not ordered correctly, there will be unused data in the right iterables. In this case, iterating over the result of `join` will raise an `UnusedDataException` at the end of the iteration.
 
 
 ## The right iterables are yielded as lists
