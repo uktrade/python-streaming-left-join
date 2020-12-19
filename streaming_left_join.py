@@ -6,9 +6,6 @@ def join(left_iter_left_key, *right_iters_with_keys):
     unused = False
     left_iter, left_key = left_iter_left_key
 
-    # Convert iterables to iterators, since we'll be iterating with raw `next` calls
-    right_iters_with_keys = tuple((iter(right_iter), right_key) for right_iter, right_key in right_iters_with_keys)
-
     # Magic "left" item to match all right items to empty the right iterables at the end
     match_any = object()
 
@@ -37,10 +34,10 @@ def join(left_iter_left_key, *right_iters_with_keys):
 
         return right_gen_for
 
-    right_gens = [
-        right_gen(right_iter, right_key)
+    right_gens = tuple(
+        right_gen(iter(right_iter), right_key)
         for right_iter, right_key in right_iters_with_keys
-    ]
+    )
 
     for left_item in left_iter:
         yield (left_item,) + tuple((list(right_gen_for(left_item))) for right_gen_for in right_gens)
